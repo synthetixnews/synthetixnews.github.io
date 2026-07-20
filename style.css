@@ -1,0 +1,712 @@
+/* ==========================================================================
+   Synthetix News - Newsletter Styling
+   ========================================================================== */
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500&family=JetBrains+Mono:wght@400;500;700&family=Space+Grotesk:wght@500;600;700&display=swap');
+
+:root {
+    /* Brand Colors */
+    --bg-main: #05060A;
+    --bg-panel: #0B0D14;
+    --accent-blue: #2EC5FF;
+    --accent-green: #39FF8F;
+    --color-text: #E8EEF5;
+    --color-dim: #7A8699;
+    --color-border: #1B1F2A;
+    
+    /* Typography */
+    --font-headline: 'Space Grotesk', sans-serif;
+    --font-body: 'Inter', sans-serif;
+    --font-mono: 'JetBrains Mono', monospace;
+}
+
+/* ==========================================================================
+   Base & Resets
+   ========================================================================== */
+*, *::before, *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    background-color: var(--bg-main);
+    color: var(--color-text);
+    font-family: var(--font-body);
+    line-height: 1.6;
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+/* Container */
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 64px 20px 96px 20px;
+}
+
+/* Utilities */
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    border: 0;
+}
+
+.desktop-only {
+    display: block;
+}
+
+@media (max-width: 768px) {
+    .desktop-only {
+        display: none;
+    }
+}
+
+/* ==========================================================================
+   Background & Ambient Effects
+   ========================================================================== */
+.cyber-grid {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-image: 
+        linear-gradient(to right, rgba(46, 197, 255, 0.04) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(46, 197, 255, 0.04) 1px, transparent 1px);
+    background-size: 40px 40px;
+    z-index: -2;
+    pointer-events: none;
+    opacity: 0.8;
+}
+
+.scanline {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 120px;
+    background: linear-gradient(to bottom, transparent, rgba(46, 197, 255, 0.05), transparent);
+    animation: scan 8s linear infinite;
+    z-index: -1;
+    pointer-events: none;
+}
+
+@keyframes scan {
+    0% { transform: translateY(-120px); }
+    100% { transform: translateY(100vh); }
+}
+
+.glow-container {
+    position: relative;
+    width: 100%;
+    height: 0;
+}
+
+.hero-glow {
+    position: absolute;
+    top: -160px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100%;
+    max-width: 700px;
+    height: 450px;
+    background: radial-gradient(circle, rgba(46, 197, 255, 0.12) 0%, rgba(5, 6, 10, 0) 70%);
+    z-index: -1;
+    pointer-events: none;
+}
+
+/* ==========================================================================
+   Animations
+   ========================================================================== */
+/* Pulsing Eyebrow Dot */
+.dot-pulse {
+    width: 8px;
+    height: 8px;
+    background-color: var(--accent-green);
+    border-radius: 50%;
+    display: inline-block;
+    margin-right: 10px;
+    animation: pulse-green 1.8s ease-in-out infinite;
+}
+
+@keyframes pulse-green {
+    0% {
+        box-shadow: 0 0 0 0 rgba(57, 255, 143, 0.6);
+        transform: scale(0.95);
+    }
+    70% {
+        box-shadow: 0 0 0 8px rgba(57, 255, 143, 0);
+        transform: scale(1.1);
+    }
+    100% {
+        box-shadow: 0 0 0 0 rgba(57, 255, 143, 0);
+        transform: scale(0.95);
+    }
+}
+
+/* Fade In on Scroll */
+.fade-in-section {
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+    will-change: opacity, transform;
+}
+
+.fade-in-section.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* ==========================================================================
+   Hero Section
+   ========================================================================== */
+#hero {
+    margin-bottom: 96px;
+    position: relative;
+}
+
+.eyebrow {
+    display: inline-flex;
+    align-items: center;
+    font-family: var(--font-mono);
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--accent-green);
+    letter-spacing: 0.05em;
+    margin-bottom: 24px;
+}
+
+.headline {
+    font-family: var(--font-headline);
+    font-size: 52px;
+    font-weight: 700;
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+    color: var(--color-text);
+    margin-bottom: 24px;
+}
+
+.text-gradient {
+    background: linear-gradient(to right, var(--accent-blue) 20%, var(--accent-green) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    color: transparent;
+}
+
+.description {
+    font-size: 18px;
+    font-weight: 400;
+    color: var(--color-dim);
+    max-width: 640px;
+    margin-bottom: 40px;
+}
+
+/* Form Wrapper & Elements */
+.form-wrapper {
+    max-width: 576px;
+}
+
+.email-form {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 16px;
+    width: 100%;
+}
+
+.input-container {
+    flex: 1;
+}
+
+.email-form input[type="email"] {
+    width: 100%;
+    background-color: var(--bg-panel);
+    border: 1px solid var(--color-border);
+    border-radius: 4px;
+    color: var(--color-text);
+    font-family: var(--font-mono);
+    font-size: 14px;
+    padding: 12px 16px;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.email-form input[type="email"]:focus {
+    outline: none;
+    border-color: var(--accent-blue);
+    box-shadow: 0 0 10px rgba(46, 197, 255, 0.25);
+}
+
+.btn-primary {
+    background: linear-gradient(to right, var(--accent-blue), var(--accent-green));
+    border: none;
+    border-radius: 4px;
+    color: var(--bg-main);
+    font-family: var(--font-mono);
+    font-size: 12px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    padding: 12px 32px;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.2s ease;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 0 20px rgba(57, 255, 143, 0.4), 0 0 40px rgba(46, 197, 255, 0.2);
+}
+
+.btn-primary:active {
+    transform: translateY(0);
+}
+
+.btn-primary:disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: none;
+}
+
+.subtext {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    color: var(--color-dim);
+    margin-top: 8px;
+}
+
+/* Form container: border glow on focus-within */
+.form-wrapper:focus-within input[type="email"] {
+    border-color: var(--accent-blue);
+    box-shadow: 0 0 10px rgba(46, 197, 255, 0.25);
+}
+
+.cta-form-wrapper:focus-within input[type="email"] {
+    border-color: var(--accent-blue);
+    box-shadow: 0 0 10px rgba(46, 197, 255, 0.25);
+}
+
+/* Feedback message status */
+.form-status {
+    font-family: var(--font-mono);
+    font-size: 13px;
+    margin-top: 8px;
+    display: none;
+}
+
+.form-status.success {
+    display: block;
+    color: var(--accent-green);
+}
+
+.form-status.error {
+    display: block;
+    color: #FF6B6B;
+}
+
+/* ==========================================================================
+   Social Proof / Stats Section
+   ========================================================================== */
+#stats {
+    margin-bottom: 96px;
+}
+
+.panel {
+    background-color: var(--bg-panel);
+    border: 1px solid var(--color-border);
+    border-radius: 8px;
+    padding: 32px;
+}
+
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+}
+
+.stat-item {
+    text-align: left;
+}
+
+.stat-item:not(:first-child) {
+    border-left: 1px solid var(--color-border);
+    padding-left: 24px;
+}
+
+.stat-number {
+    font-family: var(--font-headline);
+    font-size: 32px;
+    font-weight: 700;
+    background: linear-gradient(to bottom, var(--accent-blue), var(--accent-green));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    color: transparent;
+    margin-bottom: 4px;
+}
+
+.stat-label {
+    font-family: var(--font-mono);
+    font-size: 14px;
+    color: var(--color-dim);
+    text-transform: uppercase;
+}
+
+/* ==========================================================================
+   What You Get Section (Feature Cards)
+   ========================================================================== */
+#features {
+    margin-bottom: 96px;
+}
+
+.section-title {
+    font-family: var(--font-headline);
+    font-size: 20px;
+    font-weight: 600;
+    color: var(--color-text);
+    margin-bottom: 32px;
+}
+
+.features-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+}
+
+.feature-card {
+    background-color: var(--bg-panel);
+    border: 1px solid var(--color-border);
+    border-radius: 8px;
+    padding: 24px;
+    transition: border-color 0.3s ease, background-color 0.3s ease;
+}
+
+.feature-card:hover {
+    border-color: var(--accent-blue);
+    background-color: #0e111a;
+}
+
+.feature-card .icon {
+    font-size: 32px;
+    color: var(--accent-blue);
+    margin-bottom: 16px;
+    display: block;
+}
+
+.feature-card .card-title {
+    font-family: var(--font-headline);
+    font-size: 18px;
+    font-weight: 500;
+    color: var(--color-text);
+    margin-bottom: 8px;
+}
+
+.feature-card .card-desc {
+    font-size: 14px;
+    color: var(--color-dim);
+    line-height: 1.5;
+}
+
+/* ==========================================================================
+   Recent Issues Section (Mono-style updates list)
+   ========================================================================== */
+#recent-issues {
+    margin-bottom: 96px;
+}
+
+.mono-panel {
+    padding: 32px;
+}
+
+.panel-subtitle {
+    font-family: var(--font-mono);
+    font-size: 14px;
+    color: var(--color-dim);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin-bottom: 24px;
+}
+
+.issues-list {
+    list-style: none;
+}
+
+.issue-item {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 16px 0;
+    border-bottom: 1px solid var(--color-border);
+}
+
+.issue-item:first-child {
+    padding-top: 0;
+}
+
+.issue-item:last-child {
+    padding-bottom: 0;
+    border-bottom: none;
+}
+
+.issue-tag {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    font-weight: 700;
+    color: var(--accent-green);
+    border: 1px solid rgba(57, 255, 143, 0.3);
+    background-color: rgba(57, 255, 143, 0.1);
+    padding: 4px 8px;
+    border-radius: 4px;
+    text-align: center;
+    min-width: 54px;
+}
+
+.issue-text {
+    font-family: var(--font-mono);
+    font-size: 14px;
+    color: var(--color-text);
+}
+
+/* ==========================================================================
+   Second Email Capture Section
+   ========================================================================== */
+#cta {
+    margin-bottom: 96px;
+}
+
+.cta-card {
+    background-color: var(--bg-panel);
+    border: 1px solid var(--color-border);
+    border-radius: 8px;
+    padding: 48px;
+    text-align: center;
+}
+
+.cta-title {
+    font-family: var(--font-headline);
+    font-size: 32px;
+    font-weight: 700;
+    color: var(--color-text);
+    margin-bottom: 32px;
+}
+
+.cta-form-wrapper {
+    max-width: 448px;
+    margin: 0 auto;
+}
+
+/* ==========================================================================
+   Footer
+   ========================================================================== */
+.footer {
+    border-top: 1px solid var(--color-border);
+    background-color: #090f14;
+}
+
+.footer-container {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 32px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.footer-left {
+    display: flex;
+    flex-direction: column;
+}
+
+.brand-name {
+    font-family: var(--font-mono);
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--color-text);
+}
+
+.copyright {
+    font-family: var(--font-mono);
+    font-size: 14px;
+    color: var(--color-dim);
+}
+
+.footer-right {
+    display: flex;
+    align-items: center;
+}
+
+.social-link {
+    font-family: var(--font-mono);
+    font-size: 14px;
+    color: var(--accent-blue);
+    text-decoration: none;
+    transition: color 0.2s ease;
+}
+
+.social-link:hover {
+    color: var(--accent-green);
+}
+
+.footer-bottom {
+    text-align: center;
+    font-family: var(--font-mono);
+    font-size: 10px;
+    font-weight: 700;
+    color: var(--color-dim);
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    opacity: 0.5;
+    padding-bottom: 32px;
+}
+
+/* ==========================================================================
+   Responsive Styling (Mobile Breakpoint max-width: 768px)
+   ========================================================================== */
+@media (max-width: 768px) {
+    /* Container padding */
+    .container {
+        padding: 48px 20px 64px 20px;
+    }
+    
+    /* Layout Rules: Single column layout on every section — nothing side by side */
+    #hero {
+        margin-bottom: 64px;
+    }
+    
+    /* Headline: maximum 32px, never overflow screen width */
+    .headline {
+        font-size: 32px;
+        line-height: 1.2;
+    }
+    
+    /* Email Input stacked ABOVE button, both full width */
+    .email-form {
+        flex-direction: column;
+        gap: 16px;
+    }
+    
+    .email-form input[type="email"] {
+        width: 100%;
+        height: 48px;
+    }
+    
+    /* Button: 100% width, minimum 48px height */
+    .btn-primary {
+        width: 100%;
+        min-height: 48px;
+        height: 48px;
+    }
+    
+    /* Stat cards: stacked vertically, centered */
+    #stats {
+        margin-bottom: 64px;
+    }
+    
+    .panel {
+        padding: 24px 20px;
+    }
+    
+    .stats-grid {
+        grid-template-columns: 1fr;
+        gap: 16px;
+    }
+    
+    .stat-item {
+        text-align: center;
+    }
+    
+    .stat-item:not(:first-child) {
+        border-left: none;
+        border-top: 1px solid var(--color-border);
+        padding-left: 0;
+        padding-top: 16px;
+    }
+    
+    /* All cards stack vertically with 16px gap */
+    #features {
+        margin-bottom: 64px;
+    }
+    
+    .features-grid {
+        grid-template-columns: 1fr;
+        gap: 16px;
+    }
+    
+    /* Issues stacking vertically */
+    #recent-issues {
+        margin-bottom: 64px;
+    }
+    
+    .issue-item {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 8px;
+    }
+    
+    #cta {
+        margin-bottom: 64px;
+    }
+    
+    .cta-card {
+        padding: 32px 20px;
+    }
+    
+    .cta-title {
+        font-size: 24px;
+        margin-bottom: 24px;
+    }
+    
+    /* Footer stacking vertically */
+    .footer-container {
+        flex-direction: column;
+        gap: 16px;
+        text-align: center;
+    }
+    
+    /* Font size: never below 13px anywhere */
+    .subtext {
+        font-size: 13px;
+    }
+    
+    .issue-tag {
+        font-size: 13px;
+    }
+    
+    .issue-text {
+        font-size: 14px;
+    }
+    
+    .copyright {
+        font-size: 13px;
+    }
+    
+    .social-link {
+        font-size: 13px;
+    }
+    
+    .footer-bottom {
+        font-size: 13px;
+    }
+    
+    .stat-label {
+        font-size: 13px;
+    }
+    
+    .feature-card .card-desc {
+        font-size: 13px;
+    }
+}
